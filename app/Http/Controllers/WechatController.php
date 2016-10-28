@@ -22,7 +22,7 @@ class WechatController extends Controller
             switch ($message->MsgType) {
                 case 'event':
                     # 事件消息...
-                    return '关注朋友圈消息！';
+                    return '关注朋友圈餐厅系统消息！';
                     break;
                 case 'text':
                     # 文字消息...
@@ -58,5 +58,19 @@ class WechatController extends Controller
         });
 
         $server->serve()->send();
+    }
+
+    public function user(){
+
+        $openId ='oaIG2w0qavCHovOg8YwGkrswZg58';
+
+        $options =Config::get('wechat');
+
+        $app = new Application($options);
+
+        $userService = $app->user;
+
+        dd($userService->get($openId));
+
     }
 }
