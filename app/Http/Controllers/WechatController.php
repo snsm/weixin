@@ -70,7 +70,9 @@ class WechatController extends Controller
 
         $userService = $app->user;
 
-        dd($userService->lists($openId));
+        $userService->remark($openId, "小龙哥");
+
+        dd($userService->get($openId));
 
     }
 }
