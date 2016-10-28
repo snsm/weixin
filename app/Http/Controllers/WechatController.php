@@ -75,4 +75,53 @@ class WechatController extends Controller
         dd($userService->get($openId));
 
     }
+
+    //第二步
+    public function login(){
+
+        $options =Config::get('wechat');
+        $app = new Application($options);
+        $oauth = $app->oauth;
+
+        // 未登录
+        if (!session()->has('target_user')) {
+
+            session(['target_url'=>'user/profile']);
+
+            return $oauth->redirect();
+            // 这里不一定是return，如果你的框架action不是返回内容的话你就得使用
+            // $oauth->redirect()->send();
+        }
+
+        // 已经登录过
+        $user = session('wechat_user');
+
+        dd($user);
+
+    }
+
+
+    //第一步
+    public function oauth_callback(){
+
+        $options =Config::get('wechat');
+
+        $app = new Application($options);
+
+        $oauth = $app->oauth;
+
+        // 获取 OAuth 授权结果用户信息
+        $user = $oauth->user();
+
+        session(['wechat_user' => $user->toArray()]);
+
+        //$targetUrl = session()->has('target_url') ? '/' :session('target_url');
+        $targetUrl = session()->has('target_url') ? session('target_url'): '/';
+
+        //dd($targetUrl);
+        dd(session('wechat_user'));
+
+       // header('location:'. $targetUrl); // 跳转到 user/profile
+    }
+
 }

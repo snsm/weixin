@@ -41,7 +41,8 @@ return [
      */
     'oauth' => [
         'scopes' => array_map('trim', explode(',', env('WECHAT_OAUTH_SCOPES', 'snsapi_base'))),
-        'callback' => env('WECHAT_OAUTH_CALLBACK', '/examples/oauth_callback.php'),
+       // 'callback' => env('WECHAT_OAUTH_CALLBACK', '/examples/oauth_callback.php'),
+        'callback' => '/oauth_callback',
     ],
 
     /**

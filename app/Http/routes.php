@@ -14,3 +14,7 @@
 Route::any('wechat', 'WechatController@serve');
 
 Route::any('user', 'WechatController@user');
+
+Route::any('oauth_callback', 'WechatController@oauth_callback');
+
+Route::any('login', 'WechatController@login');
